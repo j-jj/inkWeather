@@ -7,7 +7,7 @@ import com.example.inkweather.model.Province;
 
 import android.text.TextUtils;
 
-public class Utiltty {
+public class Utility {
 	public synchronized static boolean handleProvincesResponse(InkWeatherDB inkWeatherDB, String response) {
 		if (!TextUtils.isEmpty(response)) {
 			String[] allProvinces = response.split(",");
@@ -15,8 +15,8 @@ public class Utiltty {
 				for (String p : allProvinces) {
 					String[] array = p.split("\\|");
 					Province province = new Province();
-					province.setProvince_code(array[0]);
-					province.setProvince_name(array[1]);
+					province.setProvinceCode(array[0]);
+					province.setProvinceName(array[1]);
 					inkWeatherDB.saveProvince(province);
 				}
 				return true;
@@ -25,15 +25,16 @@ public class Utiltty {
 		return false;
 	}
 
-	public synchronized static boolean handleCitiesResponse(InkWeatherDB inkWeatherDB, String reponse) {
-		if (TextUtils.isEmpty(reponse)) {
-			String[] allCitise = reponse.split(",");
+	public synchronized static boolean handleCitiesResponse(InkWeatherDB inkWeatherDB, String response, int provinceId) {
+		if (!TextUtils.isEmpty(response)) {
+			String[] allCitise = response.split(",");
 			if (allCitise != null && allCitise.length > 0) {
 				for (String c : allCitise) {
 					String[] array = c.split("\\|");
 					City city = new City();
-					city.setCity_code(array[0]);
-					city.setCity_name(array[1]);
+					city.setCityCode(array[0]);
+					city.setCityName(array[1]);
+					city.setProvinceId(provinceId);
 					inkWeatherDB.saveCity(city);
 				}
 				return true;
@@ -42,19 +43,20 @@ public class Utiltty {
 		return false;
 	}
 
-	public synchronized static boolean handleCountiesResponse(InkWeatherDB inkWeatherDB, String reponse) {
-		if (!TextUtils.isEmpty(reponse)) {
-			String[] allCounties = reponse.split(",");
+	public synchronized static boolean handleCountiesResponse(InkWeatherDB inkWeatherDB, String response, int cityId) {
+		if (!TextUtils.isEmpty(response)) {
+			String[] allCounties = response.split(",");
 			if (allCounties != null && allCounties.length > 0) {
 				for (String c : allCounties) {
 					String[] array = c.split("\\|");
 					County county = new County();
-					county.setOuntny_code(array[0]);
-					county.setCoutny_name(array[1]);
+					county.setCuntnyCode(array[0]);
+					county.setCoutnyName(array[1]);
+					county.setCityId(cityId);
 					inkWeatherDB.saveCounty(county);
 				}
+				return true;
 			}
-			return true;
 		}
 		return false;
 
