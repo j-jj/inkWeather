@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.launcher">
+
+        <!-- 启动背景 -->
+        <item name="android:windowBackground">@drawable/window_theme</item>
+    </style>
+
+    <style name="AppTheme.blank">
+
+        <!-- 空白背景 -->
+        <item name="android:windowBackground">@drawable/blank_theme</item>
+        <!-- 关闭系统标题 -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+</resources>
